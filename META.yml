@@ -1,0 +1,33 @@
+---
+abstract: 'Automatic asset serving via sha1-based URLs'
+author:
+  - 'Henry Van Styn <vanstyn@cpan.org>'
+build_requires:
+  Catalyst: 0
+  Catalyst::Test: 0
+  FindBin: 0
+  Test::More: 0
+  parent: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300028, CPAN::Meta::Converter version 2.120921'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Catalyst-Controller-AutoAssets
+requires:
+  Catalyst::Controller: 0
+  Catalyst::Utils: 0
+  Digest::SHA1: 0
+  Fcntl: 0
+  File::stat: 0
+  MIME::Types: 0
+  Module::Runtime: 0
+  Moose: 0
+  Path::Class: 0.32
+  namespace::autoclean: 0
+  strict: 0
+  warnings: 0
+version: 0.10

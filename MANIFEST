@@ -1,0 +1,16 @@
+LICENSE
+MANIFEST
+META.yml
+Makefile.PL
+README
+README.md
+dist.ini
+lib/Catalyst/Controller/AutoAssets.pm
+t/01_basic.t
+t/02_minify.t
+t/03_directory.t
+t/lib/TestApp/Controller/Assets.pm
+t/var/eg_src/js/serialize.js
+t/var/eg_src/js/stacktrace.js
+t/var/eg_src/stylesheets/ie.css
+t/var/eg_src/stylesheets/normalize.css
