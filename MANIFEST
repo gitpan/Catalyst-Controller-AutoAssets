@@ -9,6 +9,7 @@ lib/Catalyst/Controller/AutoAssets.pm
 t/01_basic.t
 t/02_minify.t
 t/03_directory.t
+t/04_pod.t
 t/lib/TestApp/Controller/Assets.pm
 t/var/eg_src/js/serialize.js
 t/var/eg_src/js/stacktrace.js
