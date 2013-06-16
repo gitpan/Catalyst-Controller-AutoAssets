@@ -28,18 +28,25 @@ my %WriteMakefileArgs = (
   "PREREQ_PM" => {
     "Catalyst::Controller" => 0,
     "Catalyst::Utils" => 0,
+    "CatalystX::InjectComponent" => 0,
+    "Cwd" => 0,
+    "Data::Dumper::Concise" => 0,
     "Digest::SHA1" => 0,
     "Fcntl" => 0,
     "File::stat" => 0,
     "MIME::Types" => 0,
     "Module::Runtime" => 0,
     "Moose" => 0,
+    "Moose::Role" => 0,
     "Path::Class" => "0.32",
+    "Storable" => 0,
+    "Time::HiRes" => 0,
+    "Try::Tiny" => 0,
     "namespace::autoclean" => 0,
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.11",
+  "VERSION" => "0.20",
   "test" => {
     "TESTS" => "t/*.t"
   }

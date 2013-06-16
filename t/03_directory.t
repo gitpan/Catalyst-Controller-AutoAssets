@@ -5,7 +5,8 @@ use warnings;
 use FindBin '$Bin';
 use lib "$Bin/lib";
 
-my $work_dir = "$Bin/var/tmp/work_dir";
+use Path::Class 0.32 qw( dir file );
+my $work_dir = dir("$Bin/var/tmp/work_dir");
 
 {
   package TestApp;
@@ -32,7 +33,7 @@ use Catalyst::Test 'TestApp';
 
 is(
   TestApp->controller('Assets')->asset_path,
-  "/assets/71d2c53e7e79f9581042130e268a50e4a14a5b77",
+  "/assets/2413cf96b3e303577a79724fa3f9fe85bad74d4c",
   "Expected directory SHA1 asset path"
 );
 

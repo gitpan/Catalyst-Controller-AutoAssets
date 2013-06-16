@@ -6,6 +6,13 @@ README
 README.md
 dist.ini
 lib/Catalyst/Controller/AutoAssets.pm
+lib/Catalyst/Controller/AutoAssets/Handler.pm
+lib/Catalyst/Controller/AutoAssets/Handler/CSS.pm
+lib/Catalyst/Controller/AutoAssets/Handler/Directory.pm
+lib/Catalyst/Controller/AutoAssets/Handler/IconSet.pm
+lib/Catalyst/Controller/AutoAssets/Handler/ImageSet.pm
+lib/Catalyst/Controller/AutoAssets/Handler/JS.pm
+lib/Catalyst/Plugin/AutoAssets.pm
 t/01_basic.t
 t/02_minify.t
 t/03_directory.t
