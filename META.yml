@@ -37,4 +37,6 @@ requires:
   namespace::autoclean: 0
   strict: 0
   warnings: 0
-version: 0.20
+resources:
+  repository: https://github.com/vanstyn/Catalyst-Controller-AutoAssets.git
+version: 0.22

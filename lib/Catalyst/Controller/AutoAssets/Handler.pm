@@ -58,6 +58,14 @@ has 'allow_static_requests', is => 'ro', isa => 'Bool', default => 0;
 # What string to use for the 'static' path
 has 'static_alias', is => 'ro', isa => 'Str', default => 'static';
 
+# Extra custom response headers for current/static requests 
+has 'current_response_headers', is => 'ro', isa => 'HashRef', default => sub {{}};
+has 'static_response_headers', is => 'ro', isa => 'HashRef', default => sub {{}};
+
+# Whether or not to set 'Etag' response headers and check 'If-None-Match' request headers
+# Very useful when using 'static' paths
+has 'use_etags', is => 'ro', isa => 'Bool', default => 0;
+
 # Max number of seconds before recalculating the fingerprint (sha1 checksum)
 # regardless of whether or not the mtime has changed. 0 means infinite/disabled
 has 'max_fingerprint_calc_age', is => 'ro', isa => 'Int', default => sub {0};
@@ -128,8 +136,7 @@ sub request {
     && $self->static_alias eq $sha1
   );
   
-  $self->asset_request($c, @args);
-  return $c->detach;
+  return $self->handle_asset_request($c, @args);
 }
 
 sub is_current_request_arg {
@@ -139,24 +146,54 @@ sub is_current_request_arg {
 
 sub current_request  {
   my ( $self, $c, $arg, @args ) = @_;
-  $c->response->header( 'Cache-Control' => 'no-cache' );
+  my %headers = (
+    'Cache-Control' => 'no-cache',
+    %{$self->current_response_headers}
+  );
+  $c->response->header( $_ => $headers{$_} ) for (keys %headers);
   $c->response->redirect(join('/',$self->asset_path,@args), 307);
   return $c->detach;
 }
 
 sub static_request  {
   my ( $self, $c, $arg, @args ) = @_;
-  
+  my %headers = (
+    'Cache-Control' => 'no-cache',
+    %{$self->static_response_headers}
+  );
+  $c->response->header( $_ => $headers{$_} ) for (keys %headers);
   # Simulate a request to the current sha1 checksum:
-  $self->prepare_asset(@args);
-  my $sha1 = $self->asset_name;
-  $self->asset_request($c, $sha1, @args);
-  
-  # Important: change the Cache-Control header because this URL is
-  # does *not* contain the checksum:
-  $c->response->header( 'Cache-Control' => 'no-cache' );
+  return $self->handle_asset_request($c, $self->asset_name, @args);
+}
 
+
+sub handle_asset_request {
+  my ( $self, $c, $arg, @args ) = @_;
+  
+  $self->prepare_asset(@args);
+  
+  if($self->use_etags && $self->client_current_etag($c, $arg, @args)) {
+    # Set 304 Not Modified:
+    $c->response->status(304);
+  }
+  else {
+    $self->asset_request($c, $arg, @args);
+  }
   return $c->detach;
+}
+
+sub client_current_etag {
+  my ( $self, $c, $arg, @args ) = @_;
+  
+  my $etag = $self->etag_value(@args);
+  $c->response->header( Etag => $etag );
+  my $client_etag = $c->request->headers->{'if-none-match'};
+  return ($client_etag && $client_etag eq $etag) ? 1 : 0;
+}
+
+sub etag_value {
+  my $self = shift;
+  return '"' . join('/',$self->asset_name,@_) . '"';
 }
 
 
@@ -380,6 +417,7 @@ sub _build_required {
   my ($self, $d) = @_;
   return (
     $self->inc_mtimes && $self->built_mtime &&
+    $d->{inc_mtimes} && $d->{built_mtime} &&
     $self->inc_mtimes eq $d->{inc_mtimes} &&
     $self->built_mtime eq $d->{built_mtime} &&
     $self->fingerprint_calc_current
@@ -446,7 +484,7 @@ sub build_asset {
   
   my $files = $opt->{files} || $self->get_include_files;
   my $inc_mtimes = $opt->{inc_mtimes} || $self->get_inc_mtime_concat($files);
-  my $built_mtime = $opt->{inc_mtimes} || $self->get_built_mtime;
+  my $built_mtime = $opt->{built_mtime} || $self->get_built_mtime;
   
   # Check the fingerprint to see if we can avoid a full rebuild (if mtimes changed
   # but the actual content hasn't by comparing the fingerprint/checksum):
@@ -463,7 +501,7 @@ sub build_asset {
   }
 
   ### Ok, we really need to do a full rebuild:
-  
+
   my $fd = $self->built_file->openw or die $!;
   $self->write_built_file($fd,$files);
   $fd->close;
