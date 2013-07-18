@@ -26,6 +26,7 @@ my %WriteMakefileArgs = (
   "LICENSE" => "perl",
   "NAME" => "Catalyst::Controller::AutoAssets",
   "PREREQ_PM" => {
+    "CSS::Scopifier" => 0,
     "Catalyst::Controller" => 0,
     "Catalyst::Utils" => 0,
     "CatalystX::InjectComponent" => 0,
@@ -46,7 +47,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "0.22",
+  "VERSION" => "0.23",
   "test" => {
     "TESTS" => "t/*.t"
   }

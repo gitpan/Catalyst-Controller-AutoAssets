@@ -2,7 +2,7 @@ package Catalyst::Controller::AutoAssets;
 use strict;
 use warnings;
 
-our $VERSION = 0.22;
+our $VERSION = 0.23;
 
 use Moose;
 use namespace::autoclean;
@@ -357,6 +357,12 @@ you want to override you must follow the same API as in those modules, using the
 C<outfile> filehandle interface. See L<JavaScript::Minifier> and L<CSS::Minifier> for more details.
 
 Does not apply to the C<Directory> asset type.
+
+=head2 scopify
+
+Applies only to the C<CSS> asset type. CSS will be scopified using L<CSS::Scopifier>. The scopify param
+should be an ArrayRef that will be used to pass to argument list of the C<scopify> method. Note that
+scopify and minify are net yet supported together. 
 
 =head2 work_dir
 
