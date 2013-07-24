@@ -18,7 +18,7 @@ meta-spec:
   version: 1.4
 name: Catalyst-Controller-AutoAssets
 requires:
-  CSS::Scopifier: 0
+  CSS::Scopifier: 0.02
   Catalyst::Controller: 0
   Catalyst::Utils: 0
   CatalystX::InjectComponent: 0
@@ -40,4 +40,4 @@ requires:
   warnings: 0
 resources:
   repository: https://github.com/vanstyn/Catalyst-Controller-AutoAssets.git
-version: 0.23
+version: 0.24
