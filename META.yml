@@ -40,4 +40,4 @@ requires:
   warnings: 0
 resources:
   repository: https://github.com/vanstyn/Catalyst-Controller-AutoAssets.git
-version: 0.24
+version: 0.25
