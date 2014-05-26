@@ -2,7 +2,7 @@ package Catalyst::Plugin::AutoAssets;
 use strict;
 use warnings;
 
-our $VERSION = 0.26;
+our $VERSION = 0.27;
 
 use Moose::Role;
 use namespace::autoclean;
@@ -19,7 +19,7 @@ after setup_finalize => sub {
   $c->log->autoflush(0) if $c->log->can('autoflush');
 };
 
-before 'setup_components' => sub { (shift)->inject_asset_controllers(@_) };
+after 'setup_components' => sub { (shift)->inject_asset_controllers(@_) };
 
 sub inject_asset_controllers {
   my $c = shift;
