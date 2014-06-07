@@ -20,6 +20,7 @@ t/02_minify.t
 t/03_directory.t
 t/04_pod.t
 t/05_scopify.t
+t/10_parallel_build.t
 t/lib/TestApp/Controller/Assets.pm
 t/var/eg_src/js/serialize.js
 t/var/eg_src/js/stacktrace.js

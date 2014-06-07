@@ -22,6 +22,7 @@ my %WriteMakefileArgs = (
   "NAME" => "Catalyst::Controller::AutoAssets",
   "PREREQ_PM" => {
     "CSS::Scopifier" => "0.02",
+    "Carp" => 0,
     "Catalyst::Controller" => 0,
     "Catalyst::Utils" => 0,
     "CatalystX::InjectComponent" => 0,
@@ -50,7 +51,7 @@ my %WriteMakefileArgs = (
     "lib" => 0,
     "parent" => 0
   },
-  "VERSION" => "0.27",
+  "VERSION" => "0.28",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -59,6 +60,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "CSS::Scopifier" => "0.02",
+  "Carp" => 0,
   "Catalyst" => 0,
   "Catalyst::Controller" => 0,
   "Catalyst::Test" => 0,
