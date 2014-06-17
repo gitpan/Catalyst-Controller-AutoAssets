@@ -43,4 +43,4 @@ requires:
 resources:
   bugtracker: https://github.com/vanstyn/Catalyst-Controller-AutoAssets/issues
   repository: https://github.com/vanstyn/Catalyst-Controller-AutoAssets.git
-version: 0.28
+version: 0.29
